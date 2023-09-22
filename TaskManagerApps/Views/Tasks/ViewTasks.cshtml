@@ -1,0 +1,47 @@
+﻿@inject IHttpContextAccessor _context;
+@model List<Tasks>
+
+@{
+    ViewData["Title"] = "List Task Page";
+    var userId = ViewBag.UserId;
+    var userName = ViewBag.UserName;
+}
+
+<div class="contaner">
+    <div class="row">
+        <div class="col-10">
+            <h2>List Task</h2>
+        </div>
+        @*<div class="col-2">
+            <button class="btn-dark"><a class="nav-link text-light" asp-area="" asp-controller="Tasks" asp-action="Create" asp-route-id="@userId">Create New Task</a></button>
+        </div>*@
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Date</th>
+                <th>Is Completed</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var data in Model)
+            {
+                <tr>
+                    <td>@data.Title</td>
+                    <td>@data.Description</td>
+                    <td>@data.DueDate.ToString("dd/MM/yyyy")</td>
+                    <td><span><input type="checkbox" value="@data.IsCompleted" checked="@data.IsCompleted"/></span></td>
+                    <td><a href="Update/@data.TaskId">View Details</a></td>
+                    @*<td><button class="btn-danger"><a class="nav-link text-dark" asp-area="" asp-controller="Tasks" asp-action="Delete">Delete</a></button></td>*@
+                </tr>
+            }
+        </tbody>
+        <br>
+        <div class="row">
+            <a href="/Login/HomePage/@_context.HttpContext.Session.GetInt32("UserId")?">Back to Home</a>
+        </div>
+    </table>
+</div>

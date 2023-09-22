@@ -1,0 +1,32 @@
+﻿@inject IHttpContextAccessor _context;
+@{
+    ViewData["Title"] = "Home";
+    var userId = ViewBag.UserId;
+    var userName = ViewBag.UserName;
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-10">
+            <h3>Hello, @_context.HttpContext.Session.GetString("UserName")</h3>
+        </div>
+        <div class="col-md-2">
+            @using (Html.BeginForm("Logout", "Login", FormMethod.Post))
+            {
+                <a href="javascript:;" onclick="document.forms[0].submit();">Logout</a>
+            }
+        </div>
+    </div>
+
+    <div class="col-6">
+        <div class="row">
+            <div class="col-md-6">
+                <button class="btn-dark"><a class="nav-link text-light" asp-area="" asp-controller="Tasks" asp-action="Create" asp-route-id="@userId">Create New Task</a></button>
+            </div>
+            <div class="col-md-6">
+                <button class="btn-light"><a class="nav-link text-dark" asp-area="" asp-controller="Tasks" asp-action="ViewTasks">View List Task</a></button>
+            </div>
+        </div>
+        <br />
+    </div>
+</div>

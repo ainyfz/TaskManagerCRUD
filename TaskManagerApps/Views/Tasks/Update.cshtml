@@ -1,0 +1,42 @@
+﻿@inject IHttpContextAccessor _context;
+@model TaskManagerApps.Models.Tasks
+@{
+    ViewData["Title"] = "Update Task";
+}
+
+<div class="container">
+    <h2>Edit Task</h2>
+    <form method="post" action="Update">
+        <div class="mb-3">
+            <label for="" class="form-label">Task Id</label>
+            <input type="text" class="form-control" asp-for="TaskId" readonly></input>
+        </div>
+        <div class="mb-3">
+            <label for="" class="form-label">Title</label>
+            <input type="text" class="form-control" asp-for="Title"></input>
+        </div>
+        <div class="mb-3">
+            <label for="" class="form-label">Description</label>
+            <input type="text" class="form-control" asp-for="Description"></input>
+        </div>
+        <div class="mb-3">
+            <label for="" class="form-label">Title</label>
+            <input type="date" class="form-control" asp-for="DueDate"></input>
+        </div>
+        <div class="mb-3">
+            <div class="col-md-3">
+                <label for="" class="form-label">Is Complete</label>
+                <span>@Html.CheckBoxFor(m => m.IsCompleted)</span>
+                @*<input type="checkbox" class="form-control" name="IsCompleted" value="IsCompleted" asp-for="IsCompleted"></input>*@
+            </div>
+        </div>
+        <input type="text" hidden value="@_context.HttpContext.Session.GetInt32("UserId")" asp-for="UserId"></input>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-danger" asp-action="Delete" asp-controller="Tasks">Delete</button>
+        </br>
+        <div class="row">
+            <a href="/Tasks/ViewTasks">Back to List</a>
+        </div>
+    </form>
+</div>

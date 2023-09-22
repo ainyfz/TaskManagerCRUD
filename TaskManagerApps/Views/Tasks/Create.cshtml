@@ -1,0 +1,38 @@
+﻿@inject IHttpContextAccessor _context;
+@model TaskManagerApps.Models.Tasks
+@{
+    ViewBag.Title = "Tasks - Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <h2>Add Task</h2>
+    @using (Html.BeginForm("CreateTasks", "Tasks", FormMethod.Post))
+    {
+        <div class="mb-3">
+            <label for="" class="form-label">Title</label>
+            <input type="text" class="form-control" asp-for="Title"></input>
+        </div>
+        <div class="mb-3">
+            <label for="" class="form-label">Description</label>
+            <input type="text" class="form-control" asp-for="Description"></input>
+        </div>
+        <div class="mb-3">
+            <label for="" class="form-label">Due Date</label>
+            <input type="date" class="form-control" asp-for="DueDate"></input>
+        </div>
+        @*<div class="mb-3">
+            <div class="col-md-3">
+                <label for="" class="form-label">Is Complete</label>
+                <span>@Html.CheckBoxFor(m => m.IsCompleted)</span>
+            </div>
+        </div>*@
+        <input type="text" hidden value="@_context.HttpContext.Session.GetInt32("UserId")" asp-for="UserId"></input>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <br>
+        <div class="row">
+            <a href="/Login/HomePage/@_context.HttpContext.Session.GetInt32("UserId")">Back to Home</a>
+        </div>
+    }
+</div>
